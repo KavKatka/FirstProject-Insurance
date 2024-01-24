@@ -10,7 +10,7 @@ public class Databaze {
     private ArrayList<Klient> klienti;
 
     /**
-     * Kolekce
+     * Konstruktor
      */
     public Databaze() {
         klienti = new ArrayList<>();
@@ -36,15 +36,26 @@ public class Databaze {
      * @return Nalezený klient/Klienti
      */
     public ArrayList<Klient> vyhledejKlienta(String jmeno, String prijmeni) {
+        ArrayList<Klient> nalezen = new ArrayList<>(klienti);
+        return nalezen;
+    }
+
+    /**
+     * Metoda pro vyhledání klienta bez parametrů
+     *
+     * @return Nalezení klienti
+     */
+    public ArrayList<Klient> najdiKlienta() {
         ArrayList<Klient> nalezen = new ArrayList<>();
         for (Klient klient : klienti) {
-            if (klient.getJmeno().equals(jmeno) && klient.getPrijmeni().equals(prijmeni)) {
-                nalezen.add(klient);
+            if (!klienti.isEmpty()) {
+                System.out.println(klient);
+            } else {
+                System.out.println("Klient nenalezen.");
             }
         }
         return nalezen;
     }
-
 
     /**
      * Metoda pro vymazání klienta - ukončení smlouvy, vypovězení smlouvy
@@ -55,7 +66,7 @@ public class Databaze {
     public void vymazKlienta(String jmeno, String prijmeni) {
         ArrayList<Klient> nalezeno = vyhledejKlienta(jmeno, prijmeni);
         for (Klient klient : klienti) {
-            klienti.remove(klient);
+            nalezeno.remove(klient);
         }
     }
 }

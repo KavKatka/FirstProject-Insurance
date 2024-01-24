@@ -13,6 +13,11 @@ public class Program {
         Databaze databaze = new Databaze();
         Pojisteni pojisteni = new Pojisteni();
 
+        databaze.pridejKlienta(klient.getJmeno(), klient.getPrijmeni(), klient.getVek(), klient.getTelefonniCislo());
+        databaze.pridejKlienta(klient1.getJmeno(), klient1.getPrijmeni(), klient1.getVek(), klient1.getTelefonniCislo());
+        databaze.pridejKlienta(klient2.getJmeno(), klient2.getPrijmeni(), klient2.getVek(), klient2.getTelefonniCislo());
+        databaze.pridejKlienta(klient3.getJmeno(), klient3.getPrijmeni(), klient3.getVek(), klient3.getTelefonniCislo());
+
         //Try - catch blok?
 
         // Pokračuj libovolnou klávesou - nějaký příkaz?
@@ -25,37 +30,28 @@ public class Program {
             switch (volba) {
                 case "1":
                     System.out.println("Vaše volba: 1 - Přidat novou pojištěnou osobu");
-                    System.out.println("Zadejte jméno:");
-                    String jmeno = scanner.nextLine();
-                    System.out.println("Zadejte příjmení:");
-                    String prijmeni = scanner.nextLine();
-                    System.out.println("Zadejte věk:");
-                    int vek = Integer.parseInt(scanner.nextLine());
-                    System.out.println("Zadejte telefonní číslo:");
-                    String telefonniCislo = scanner.nextLine();
-                    databaze.pridejKlienta(jmeno, prijmeni, vek, telefonniCislo);
+                    System.out.println();
+                    pojisteni.pridejKlienta();
                     System.out.println("Nový klient byl uložen do systému. Pokračujte libovolnou klávesou...");
                     break;
                 case "2":
                     System.out.println("Vaše volba: 2 - Vypsat všechny pojištěné osoby");
-
+                    System.out.println();
+                    pojisteni.vyhledejVsechnyKlienty();
+                    System.out.println("Pokračujte libovolnou klávesou...");
+                    break;
                 case "3":
                     System.out.println("Vaše volba: 3 - Vyhledat pojištěnou osobu");
-                    System.out.println("Zadejte jméno");
-                    String hledaneJmeno = scanner.nextLine();
-                    System.out.println("Zadejte příjmeni:");
-                    String hledanePrijmeni = scanner.nextLine();
-                    databaze.vyhledejKlienta(hledaneJmeno, hledanePrijmeni);
+                    System.out.println();
+                    pojisteni.vyhledejKlienta();
+                    System.out.println("Pokračujte libovolnou klávesou...");
                     break;
                 case "4":
                     System.out.println("Vaše volba: 4 - Smazat pojištěnou osobu");
-                    System.out.println("Zadejte jméno:");
-                    String jmenoKeSmazani = scanner.nextLine();
-                    System.out.println("Zadejte příjmení:");
-                    String prijmeniKeSmazani = scanner.nextLine();
-                    databaze.vymazKlienta(jmenoKeSmazani, prijmeniKeSmazani);
-//Opravdu si přejete vymazat tohoto klienta z databáze - ANO/NE
-                    System.out.println("Klient byl vymazán z databáze. Pokračujte libovolnou klávesou...");
+                    System.out.println();
+                    pojisteni.vymazKlienta();
+                    System.out.println();
+                    System.out.println("Pokračujte libovolnou klávesou...");
                     break;
                 case "5":
                     System.out.println("Vaše volba: 5 - Konec programu");

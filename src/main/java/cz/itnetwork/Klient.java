@@ -67,4 +67,9 @@ public class Klient {
     public void setTelefonniCislo(String telefonniCislo) {
         this.telefonniCislo = telefonniCislo;
     }
+
+    @Override
+    public String toString(){
+        return String.format("%s %s  %d  %s",getJmeno(), getPrijmeni(), getVek(), getTelefonniCislo());
+    }
 }
