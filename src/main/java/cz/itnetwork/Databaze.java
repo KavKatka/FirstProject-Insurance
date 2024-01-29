@@ -1,6 +1,7 @@
 package cz.itnetwork;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class Databaze {
 
@@ -8,6 +9,8 @@ public class Databaze {
      * Kolekce klientů
      */
     private ArrayList<Klient> klienti;
+
+    private Klient klientId;
 
     /**
      * Konstruktor
@@ -31,30 +34,27 @@ public class Databaze {
     /**
      * Metoda pro vyhledání klienta dle jména a příjmení
      *
-     * @param jmeno    Jméno
-     * @param prijmeni Příjmení
-     * @return Nalezený klient/Klienti
+     * @param jmeno     Jméno
+     * @param prijmeni  Příjmení
+     * @return          Nalezený klient/Klienti
      */
     public ArrayList<Klient> vyhledejKlienta(String jmeno, String prijmeni) {
-        ArrayList<Klient> nalezen = new ArrayList<>(klienti);
+        ArrayList<Klient> nalezen = new ArrayList<>();
+        for (Klient klient : klienti) {
+            if (klient.getJmeno().equals(jmeno) && klient.getPrijmeni().equals(prijmeni)) {
+                nalezen.add(klient);
+            }
+        }
         return nalezen;
     }
 
     /**
-     * Metoda pro vyhledání klienta bez parametrů
+     * Getter - vypsání všech klientů
      *
      * @return Nalezení klienti
      */
-    public ArrayList<Klient> najdiKlienta() {
-        ArrayList<Klient> nalezen = new ArrayList<>();
-        for (Klient klient : klienti) {
-            if (!klienti.isEmpty()) {
-                System.out.println(klient);
-            } else {
-                System.out.println("Klient nenalezen.");
-            }
-        }
-        return nalezen;
+    public ArrayList<Klient> getKlienti() {
+        return klienti;
     }
 
     /**
@@ -65,8 +65,12 @@ public class Databaze {
      */
     public void vymazKlienta(String jmeno, String prijmeni) {
         ArrayList<Klient> nalezeno = vyhledejKlienta(jmeno, prijmeni);
-        for (Klient klient : klienti) {
+        for (Klient klient : nalezeno) {
             nalezeno.remove(klient);
         }
+    }
+
+    public Klient getKlientId() {
+        return klientId;
     }
 }

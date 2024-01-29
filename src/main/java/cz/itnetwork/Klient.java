@@ -1,5 +1,7 @@
 package cz.itnetwork;
 
+import java.util.UUID;
+
 public class Klient {
     /**
      * Jméno klienta
@@ -17,6 +19,11 @@ public class Klient {
      * Věk klienta
      */
     private int vek;
+    /**
+     * ID klienta
+     */
+    private String klientId;
+
 
     /**
      * Konstruktor
@@ -31,6 +38,7 @@ public class Klient {
         this.prijmeni = prijmeni;
         this.vek = vek;
         this.telefonniCislo = telefonniCislo;
+        this.klientId = IdGenerator.vygenerujId();
     }
 
     /**
@@ -68,8 +76,13 @@ public class Klient {
         this.telefonniCislo = telefonniCislo;
     }
 
-    @Override
-    public String toString(){
-        return String.format("%s %s  %d  %s",getJmeno(), getPrijmeni(), getVek(), getTelefonniCislo());
+    public String getKlientId() {
+        return klientId;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%-5s %-30s %-30s %-3d  %-9s", getKlientId(), getJmeno(), getPrijmeni(), getVek(), getTelefonniCislo());
+    }
+
 }
