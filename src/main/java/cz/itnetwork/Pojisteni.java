@@ -7,11 +7,11 @@ public class Pojisteni {
     /**
      * Kolekce
      */
-    private Databaze databaze;
+    private final Databaze databaze;
     /**
      * Scanner - vstup od uživatele
      */
-    private Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
 
     /**
      * Getter
@@ -35,22 +35,27 @@ public class Pojisteni {
      * Metoda pro přidání klienta a příslušné kroky v programu
      */
     public void pridejKlienta() {
+        String jmeno;
+        do{
+            System.out.println("Zadejte jméno: ");
+            jmeno = scanner.nextLine().trim();
+        } while (jmeno.isEmpty());
 
-        System.out.println("Zadejte jméno: ");
-        String jmeno = scanner.nextLine().trim().toUpperCase();
-
-        System.out.println("Zadejte příjmení: ");
-        String prijmeni = scanner.nextLine().trim().toUpperCase();
+        String prijmeni;
+        do{
+            System.out.println("Zadejte příjmení: ");
+            prijmeni = scanner.nextLine().trim();
+        } while (prijmeni.isEmpty());
 
         System.out.println("Zadejte věk:");
         int vek = 0;
         boolean chyba;
         do {
-            try {                                                    // try-catch blok - pro zachycení vyjímky - uzivatel zadá třeba písmena
+            try {                   // try-catch blok - pro zachycení vyjímky - uzivatel zadá třeba písmena
                 vek = Integer.parseInt(scanner.nextLine().trim());
                 chyba = false;
             } catch (Exception e) {
-                System.out.println("Nesprávná hodnota.");
+                System.out.println("Nesprávná hodnota. Zkuste to znovu.");
                 chyba = true;
             }
         } while (chyba);
@@ -62,6 +67,7 @@ public class Pojisteni {
             System.out.println("Neplatný formát, zkuste prosím zadat znovu telefonní číslo (9 číslic).");
             telefonniCislo = scanner.nextLine().trim();
         }
+
         databaze.pridejKlienta(jmeno, prijmeni, vek, telefonniCislo);
     }
 
@@ -94,7 +100,6 @@ public class Pojisteni {
     public void vyhledejVsechnyKlienty() {
         ArrayList<Klient> nalezeno = databaze.getKlienti();
         if (!nalezeno.isEmpty()) {
-
             System.out.println("Nalezeny tyto záznamy: ");
             System.out.println("-----------------------------------------------------------------------------------------");
             System.out.println("ID    Jméno                          Příjmení                      Věk   Telefonní číslo");
@@ -102,6 +107,8 @@ public class Pojisteni {
             for (Klient klient : nalezeno) {
                 System.out.println(klient);
             }
+        } else {
+            System.out.println("Nebyly nalezeny žádné záznamy.");
         }
         System.out.println();
     }
@@ -111,30 +118,29 @@ public class Pojisteni {
      */
     public void vymazKlienta() {
         System.out.println("Zadejte jméno:");
-        String jmenoKeSmazani = scanner.nextLine().trim();
+        String jmenoKeSmazani = scanner.nextLine().trim().toLowerCase();
         System.out.println("Zadejte příjmení:");
-        String prijmeniKeSmazani = scanner.nextLine().trim();
+        String prijmeniKeSmazani = scanner.nextLine().trim().toLowerCase();
         String nalezeno = String.valueOf(databaze.vyhledejKlienta(jmenoKeSmazani, prijmeniKeSmazani));
         System.out.println();
 
-        if (!nalezeno.isEmpty()) {
-            if (nalezeno.length() > 1) {
-                System.out.println("Nalezeny tyto záznamy: ");
-                System.out.println("-----------------------------------------------------------------------------------------");
-                System.out.println("ID    Jméno                          Příjmení                      Věk   Telefonní číslo");
-                System.out.println("-----------------------------------------------------------------------------------------");
-                System.out.println(nalezeno);
-                System.out.println();
-                System.out.println("Vyberte, který záznam, podle ID, chcete smazat:");
-                String vybraneID = scanner.nextLine();
+        if (!(nalezeno == null)) {
+            System.out.println("Nalezeny tyto záznamy: ");
+            System.out.println("-----------------------------------------------------------------------------------------");
+            System.out.println("ID    Jméno                          Příjmení                      Věk   Telefonní číslo");
+            System.out.println("-----------------------------------------------------------------------------------------");
+            System.out.println(nalezeno);
+            System.out.println();
 
+            System.out.println("Vyberte ID ke smazání: ");
+            String vybraneID = scanner.nextLine().trim();
+            databaze.najdiPodleId(vybraneID);
 
-            }
-            System.out.println("Opravdu chcete vymazat tohoto klienta? [ANO / NE]\n" + nalezeno);
+            System.out.println("Opravdu chcete vymazat tohoto klienta? [ANO / NE]\n" + vybraneID);
             String opravdu = "";
             opravdu = scanner.nextLine().toLowerCase().trim();
             if (opravdu.equals("ano")) {
-                databaze.vymazKlienta(jmenoKeSmazani, prijmeniKeSmazani);
+                databaze.vymazKlienta(vybraneID);
                 System.out.println("Klient byl vymazán z databáze.");
             } else {
                 System.out.println("Klient byl ponechán v databázi.");
@@ -145,28 +151,53 @@ public class Pojisteni {
 
     /**
      * Metody pro editaci
-     *
-     * @param jmeno    Jméno
-     * @param prijmeni Příjmení
      */
-    public void editujJmeno(String jmeno, String prijmeni) {
-        ArrayList<Klient> nalezen = databaze.vyhledejKlienta(jmeno, prijmeni);
+    public void editujJmeno() {
+        System.out.println();
+        System.out.println("Zadejte ID klienta k editaci jména: ");
+        String zadaneId = scanner.nextLine().trim();
         System.out.println("Zadejte nové jméno: ");
         String noveJmeno = scanner.nextLine().trim();
-        for (Klient klient : nalezen) {
-            klient.setJmeno(noveJmeno);
-        }
+        databaze.editujJmeno(zadaneId, noveJmeno);
+
     }
 
-    public void editujPrijmeni(String jmeno, String prijmeni) {
+    public void editujPrijmeni() {
+        System.out.println();
+        System.out.println("Zadejte ID klienta k editaci příjmení: ");
+        String zadaneId = scanner.nextLine().trim();
+        System.out.println("Zadejte nové příjmení: ");
+        String novePrijmeni = scanner.nextLine().trim();
+        databaze.editujPrijmeni(zadaneId, novePrijmeni);
 
     }
 
     public void editujVek() {
-
+        System.out.println();
+        System.out.println("Zadejte ID klienta k editaci věku: ");
+        String zadaneId = scanner.nextLine().trim();
+        System.out.println("Zadejte nový věk: ");
+        int vek;
+        boolean chyba;
+        do {
+            try {
+                vek = Integer.parseInt(scanner.nextLine().trim());
+                databaze.editujVek(zadaneId, vek);
+                chyba = false;
+            } catch (Exception e) {
+                System.out.println("Nesprávná hodnota, zkuste to znovu.");
+                chyba = true;
+            }
+        } while (chyba);
     }
 
     public void editujTelefonniCislo() {
+        System.out.println();
+        System.out.println("Zadejte ID klienta k editaci telefonního čísla: ");
+        String zadaneId = scanner.nextLine().trim();
+        System.out.println("Zadejte nové telefonní číslo: ");
+        String noveTelefonniCislo = scanner.nextLine().trim();
+        databaze.editujTelefonniCislo(zadaneId, noveTelefonniCislo);
 
     }
 

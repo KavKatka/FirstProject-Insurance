@@ -1,6 +1,5 @@
 package cz.itnetwork;
 
-import java.util.UUID;
 
 public class Klient {
     /**
@@ -22,8 +21,7 @@ public class Klient {
     /**
      * ID klienta
      */
-    private String klientId;
-
+    private final String klientId;
 
     /**
      * Konstruktor
@@ -45,7 +43,7 @@ public class Klient {
      * Gettery a Settery
      */
     public String getJmeno() {
-        return jmeno;
+        return jmeno.substring(0, 1).toUpperCase() + jmeno.substring(1);
     }
 
     public void setJmeno(String jmeno) {
@@ -53,7 +51,7 @@ public class Klient {
     }
 
     public String getPrijmeni() {
-        return prijmeni;
+        return prijmeni.substring(0, 1).toUpperCase() + prijmeni.substring(1);
     }
 
     public void setPrijmeni(String prijmeni) {

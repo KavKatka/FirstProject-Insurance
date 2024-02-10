@@ -1,16 +1,15 @@
 package cz.itnetwork;
 
 import java.util.ArrayList;
-import java.util.UUID;
+import java.util.Objects;
+
 
 public class Databaze {
 
     /**
      * Kolekce klientů
      */
-    private ArrayList<Klient> klienti;
-
-    private Klient klientId;
+    private final ArrayList<Klient> klienti;
 
     /**
      * Konstruktor
@@ -28,15 +27,33 @@ public class Databaze {
      * @param telefonniCislo Telefonní číslo
      */
     public void pridejKlienta(String jmeno, String prijmeni, int vek, String telefonniCislo) {
+        ArrayList<Klient> existujici = getKlienti();
+        for (Klient klient : existujici){
+            if (klient.getTelefonniCislo().equals(telefonniCislo)){
+                System.out.println("Klient již existuje.");
+                System.out.println(klient);
+                return;
+            }
+        }
         klienti.add(new Klient(jmeno, prijmeni, vek, telefonniCislo));
+    }
+
+
+    /**
+     * Getter - vypsání všech klientů
+     *
+     * @return Nalezení klienti
+     */
+    public ArrayList<Klient> getKlienti() {
+        return klienti;
     }
 
     /**
      * Metoda pro vyhledání klienta dle jména a příjmení
      *
-     * @param jmeno     Jméno
-     * @param prijmeni  Příjmení
-     * @return          Nalezený klient/Klienti
+     * @param jmeno    Jméno
+     * @param prijmeni Příjmení
+     * @return Nalezený klient/Klienti
      */
     public ArrayList<Klient> vyhledejKlienta(String jmeno, String prijmeni) {
         ArrayList<Klient> nalezen = new ArrayList<>();
@@ -49,28 +66,96 @@ public class Databaze {
     }
 
     /**
-     * Getter - vypsání všech klientů
+     * Metoda pro editaci jména
      *
-     * @return Nalezení klienti
+     * @param id        ID klienta
+     * @param noveJmeno Zadání nového jména
+     * @return Nové jméno
      */
-    public ArrayList<Klient> getKlienti() {
-        return klienti;
+    public boolean editujJmeno(String id, String noveJmeno) {
+        Klient klient = najdiPodleId(id);
+        if (klient == null) {
+            return false;
+        }
+        klient.setJmeno(noveJmeno);
+        return true;
     }
 
     /**
-     * Metoda pro vymazání klienta - ukončení smlouvy, vypovězení smlouvy
+     * Metoda pro editaci příjmení
      *
-     * @param jmeno    Jméno
-     * @param prijmeni Příjmení
+     * @param id           ID klienta
+     * @param novePrijmeni Zadání nového příjmení
+     * @return Nové příjmení
      */
-    public void vymazKlienta(String jmeno, String prijmeni) {
+    public boolean editujPrijmeni(String id, String novePrijmeni) {
+        Klient klient = najdiPodleId(id);
+        if (klient == null) {
+            return false;
+        }
+        klient.setPrijmeni(novePrijmeni);
+        return true;
+    }
+
+    /**
+     * Metoda pro editaci věku
+     *
+     * @param id  ID klienta
+     * @param vek Zadání nového věku
+     */
+    public boolean editujVek(String id, int vek) {
+        Klient klient = najdiPodleId(id);
+        if (klient == null) {
+            return false;
+        }
+        klient.setVek(vek);
+        return true;
+    }
+
+    /**
+     * Metoda pro editaci telefonního čísla
+     *
+     * @param id      ID klienta
+     * @param telefon Nové telefonní číslo
+     */
+    public boolean editujTelefonniCislo(String id, String telefon) {
+        Klient klient = najdiPodleId(id);
+        if (klient == null) {
+            return false;
+        }
+        klient.setTelefonniCislo(telefon);
+        return true;
+    }
+
+    /**
+     * Metoda pro hledání klienta podle ID
+     */
+    public Klient najdiPodleId(String id) {
+        for (Klient klient : klienti) {
+            if (klient.getKlientId().equals(id)) {
+                return klient;
+            }
+        }
+        return null;
+    }
+
+
+    /**
+     * Metoda pro vymazání klienta - ukončení smlouvy, vypovězení smlouvy
+     */
+    /*public void vymazKlienta(String jmeno, String prijmeni) {
         ArrayList<Klient> nalezeno = vyhledejKlienta(jmeno, prijmeni);
         for (Klient klient : nalezeno) {
             nalezeno.remove(klient);
         }
-    }
-
-    public Klient getKlientId() {
-        return klientId;
+    }*/
+    public boolean vymazKlienta(String id) {
+        for (Klient klient : klienti) {
+            if (Objects.equals(id, klient.getKlientId())) {
+                klienti.remove(klient);
+                return true;
+            }
+        }
+        return false;
     }
 }
