@@ -2,7 +2,7 @@ package cz.itnetwork;
 
 import java.util.Scanner;
 
-public class UzivatelskeProstredi {
+public class Program {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
@@ -22,7 +22,6 @@ public class UzivatelskeProstredi {
         String volba = "";
         while (!volba.equals("6")) {
             pojisteni.vypisMenu();
-            System.out.println();
             volba = scanner.nextLine().trim();
             switch (volba) {
                 case "1":
@@ -95,7 +94,6 @@ public class UzivatelskeProstredi {
                 case "5":
                     System.out.println("Vaše volba: 5 - Smazat pojištěnou osobu");
                     System.out.println();
-                    pojisteni.vyhledejKlienta();
                     pojisteni.vymazKlienta();
                     System.out.println();
                     System.out.println("Pokračujte klávesou ENTER...");

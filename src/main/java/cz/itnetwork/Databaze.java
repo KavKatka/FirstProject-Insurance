@@ -9,7 +9,7 @@ public class Databaze {
     /**
      * Kolekce klientů
      */
-    private final ArrayList<Klient> klienti;
+    private ArrayList<Klient> klienti;
 
     /**
      * Konstruktor
@@ -26,18 +26,16 @@ public class Databaze {
      * @param vek            Věk
      * @param telefonniCislo Telefonní číslo
      */
-    public void pridejKlienta(String jmeno, String prijmeni, int vek, String telefonniCislo) {
+    public boolean pridejKlienta(String jmeno, String prijmeni, int vek, String telefonniCislo) {
         ArrayList<Klient> existujici = getKlienti();
-        for (Klient klient : existujici){
-            if (klient.getTelefonniCislo().equals(telefonniCislo)){
-                System.out.println("Klient již existuje.");
-                System.out.println(klient);
-                return;
+        for (Klient klient : existujici) {
+            if (klient.getTelefonniCislo().equals(telefonniCislo)) {
+                return false;
             }
         }
         klienti.add(new Klient(jmeno, prijmeni, vek, telefonniCislo));
+        return true;
     }
-
 
     /**
      * Getter - vypsání všech klientů
@@ -139,19 +137,12 @@ public class Databaze {
         return null;
     }
 
-
     /**
      * Metoda pro vymazání klienta - ukončení smlouvy, vypovězení smlouvy
      */
-    /*public void vymazKlienta(String jmeno, String prijmeni) {
-        ArrayList<Klient> nalezeno = vyhledejKlienta(jmeno, prijmeni);
-        for (Klient klient : nalezeno) {
-            nalezeno.remove(klient);
-        }
-    }*/
     public boolean vymazKlienta(String id) {
         for (Klient klient : klienti) {
-            if (Objects.equals(id, klient.getKlientId())) {
+            if (klient.getKlientId().equals(id)) {
                 klienti.remove(klient);
                 return true;
             }

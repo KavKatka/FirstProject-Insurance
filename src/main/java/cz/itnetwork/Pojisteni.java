@@ -7,11 +7,11 @@ public class Pojisteni {
     /**
      * Kolekce
      */
-    private final Databaze databaze;
+    private Databaze databaze;
     /**
      * Scanner - vstup od uživatele
      */
-    private final Scanner scanner = new Scanner(System.in);
+    private Scanner scanner = new Scanner(System.in);
 
     /**
      * Getter
@@ -36,13 +36,13 @@ public class Pojisteni {
      */
     public void pridejKlienta() {
         String jmeno;
-        do{
+        do {
             System.out.println("Zadejte jméno: ");
             jmeno = scanner.nextLine().trim();
         } while (jmeno.isEmpty());
 
         String prijmeni;
-        do{
+        do {
             System.out.println("Zadejte příjmení: ");
             prijmeni = scanner.nextLine().trim();
         } while (prijmeni.isEmpty());
@@ -68,7 +68,11 @@ public class Pojisteni {
             telefonniCislo = scanner.nextLine().trim();
         }
 
-        databaze.pridejKlienta(jmeno, prijmeni, vek, telefonniCislo);
+        if (databaze.pridejKlienta(jmeno, prijmeni, vek, telefonniCislo)) {
+            System.out.println("Klient byl přidán.");
+        } else {
+            System.out.println("Klient již existuje");
+        }
     }
 
     /**
@@ -84,7 +88,7 @@ public class Pojisteni {
         if (!vyhledany.isEmpty()) {
             System.out.println("Nalezeny tyto záznamy: ");
             System.out.println("-----------------------------------------------------------------------------------------");
-            System.out.println("ID    Jméno                          Příjmení                      Věk   Telefonní číslo");
+            System.out.println(" ID    Jméno                          Příjmení                      Věk   Telefonní číslo");
             System.out.println("-----------------------------------------------------------------------------------------");
             for (Klient klient : vyhledany) {
                 System.out.println(klient);
@@ -102,7 +106,7 @@ public class Pojisteni {
         if (!nalezeno.isEmpty()) {
             System.out.println("Nalezeny tyto záznamy: ");
             System.out.println("-----------------------------------------------------------------------------------------");
-            System.out.println("ID    Jméno                          Příjmení                      Věk   Telefonní číslo");
+            System.out.println(" ID    Jméno                          Příjmení                      Věk   Telefonní číslo");
             System.out.println("-----------------------------------------------------------------------------------------");
             for (Klient klient : nalezeno) {
                 System.out.println(klient);
@@ -118,33 +122,25 @@ public class Pojisteni {
      */
     public void vymazKlienta() {
         System.out.println("Zadejte jméno:");
-        String jmenoKeSmazani = scanner.nextLine().trim().toLowerCase();
+        String jmenoKeSmazani = scanner.nextLine().trim();
         System.out.println("Zadejte příjmení:");
-        String prijmeniKeSmazani = scanner.nextLine().trim().toLowerCase();
-        String nalezeno = String.valueOf(databaze.vyhledejKlienta(jmenoKeSmazani, prijmeniKeSmazani));
+        String prijmeniKeSmazani = scanner.nextLine().trim();
+        ArrayList<Klient> nalezeno = databaze.vyhledejKlienta(jmenoKeSmazani, prijmeniKeSmazani);
         System.out.println();
+        System.out.println("Nalezeny tyto záznamy: ");
+        System.out.println("-----------------------------------------------------------------------------------------");
+        System.out.println(" ID    Jméno                          Příjmení                      Věk   Telefonní číslo");
+        System.out.println("-----------------------------------------------------------------------------------------");
+        System.out.println(nalezeno);
+        System.out.println();
+        System.out.println("Vyberte ID ke smazání: ");
+        String vybraneID = scanner.nextLine().trim();
+        databaze.najdiPodleId(vybraneID);
 
-        if (!(nalezeno == null)) {
-            System.out.println("Nalezeny tyto záznamy: ");
-            System.out.println("-----------------------------------------------------------------------------------------");
-            System.out.println("ID    Jméno                          Příjmení                      Věk   Telefonní číslo");
-            System.out.println("-----------------------------------------------------------------------------------------");
-            System.out.println(nalezeno);
-            System.out.println();
-
-            System.out.println("Vyberte ID ke smazání: ");
-            String vybraneID = scanner.nextLine().trim();
-            databaze.najdiPodleId(vybraneID);
-
-            System.out.println("Opravdu chcete vymazat tohoto klienta? [ANO / NE]\n" + vybraneID);
-            String opravdu = "";
-            opravdu = scanner.nextLine().toLowerCase().trim();
-            if (opravdu.equals("ano")) {
-                databaze.vymazKlienta(vybraneID);
-                System.out.println("Klient byl vymazán z databáze.");
-            } else {
-                System.out.println("Klient byl ponechán v databázi.");
-            }
+        if (databaze.vymazKlienta(vybraneID)) {
+            System.out.println("Klient byl vymazán z databáze.");
+        } else {
+            System.out.println("Chyba");
         }
         System.out.println();
     }
@@ -158,7 +154,11 @@ public class Pojisteni {
         String zadaneId = scanner.nextLine().trim();
         System.out.println("Zadejte nové jméno: ");
         String noveJmeno = scanner.nextLine().trim();
-        databaze.editujJmeno(zadaneId, noveJmeno);
+        if (databaze.editujJmeno(zadaneId, noveJmeno)) {
+            System.out.println("Změna byla provedena.");
+        } else {
+            System.out.println("Chyba.");
+        }
 
     }
 
@@ -168,7 +168,11 @@ public class Pojisteni {
         String zadaneId = scanner.nextLine().trim();
         System.out.println("Zadejte nové příjmení: ");
         String novePrijmeni = scanner.nextLine().trim();
-        databaze.editujPrijmeni(zadaneId, novePrijmeni);
+        if (databaze.editujPrijmeni(zadaneId, novePrijmeni)) {
+            System.out.println("Změna byla provedena.");
+        } else {
+            System.out.println("Chyba");
+        }
 
     }
 
@@ -197,10 +201,12 @@ public class Pojisteni {
         String zadaneId = scanner.nextLine().trim();
         System.out.println("Zadejte nové telefonní číslo: ");
         String noveTelefonniCislo = scanner.nextLine().trim();
-        databaze.editujTelefonniCislo(zadaneId, noveTelefonniCislo);
-
+        if (databaze.editujTelefonniCislo(zadaneId, noveTelefonniCislo)) {
+            System.out.println("Změna byla provedena.");
+        } else {
+            System.out.println("Chyba");
+        }
     }
-
 
     /**
      * Metoda pro vypsání hlavního menu
@@ -230,5 +236,4 @@ public class Pojisteni {
         System.out.println("D - Editace - Telefonní číslo");
         System.out.println();
     }
-
 }

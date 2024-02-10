@@ -80,7 +80,7 @@ public class Klient {
 
     @Override
     public String toString() {
-        return String.format("%-5s %-30s %-30s %-3d  %-9s", getKlientId(), getJmeno(), getPrijmeni(), getVek(), getTelefonniCislo());
+        return String.format("%-5s %-30s %-30s %-3d %-9s", getKlientId(), getJmeno(), getPrijmeni(), getVek(), getTelefonniCislo());
     }
 
 }
