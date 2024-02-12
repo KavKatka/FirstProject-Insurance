@@ -12,6 +12,10 @@ public class Pojisteni {
      * Scanner - vstup od uživatele
      */
     private Scanner scanner = new Scanner(System.in);
+    /**
+     * Formátování textu - vstupy
+     */
+    public FormatovaniTextu formatovaniTextu = new FormatovaniTextu();
 
     /**
      * Getter
@@ -22,7 +26,6 @@ public class Pojisteni {
         return databaze;
     }
 
-
     /**
      * Konstruktor
      */
@@ -32,7 +35,7 @@ public class Pojisteni {
 
 
     /**
-     * Metoda pro přidání klienta a příslušné kroky v programu
+     * Metoda pro přidání klienta
      */
     public void pridejKlienta() {
         String jmeno;
@@ -80,9 +83,12 @@ public class Pojisteni {
      */
     public void vyhledejKlienta() {
         System.out.println("Zadejte jméno: ");
-        String hledaneJmeno = scanner.nextLine().trim();
+        String jmeno = scanner.nextLine().trim();
+        String hledaneJmeno = formatovaniTextu.formatujText(jmeno);
         System.out.println("Zadejte příjmeni: ");
-        String hledanePrijmeni = scanner.nextLine().trim();
+        String prijmeni = scanner.nextLine().trim();
+        String hledanePrijmeni = formatovaniTextu.formatujText(prijmeni);
+        formatovaniTextu.formatujText(hledanePrijmeni);
         System.out.println();
         ArrayList<Klient> vyhledany = databaze.vyhledejKlienta(hledaneJmeno, hledanePrijmeni);
         if (!vyhledany.isEmpty()) {
@@ -122,9 +128,11 @@ public class Pojisteni {
      */
     public void vymazKlienta() {
         System.out.println("Zadejte jméno:");
-        String jmenoKeSmazani = scanner.nextLine().trim();
+        String jmeno = scanner.nextLine().trim();
+        String jmenoKeSmazani = formatovaniTextu.formatujText(jmeno);
         System.out.println("Zadejte příjmení:");
-        String prijmeniKeSmazani = scanner.nextLine().trim();
+        String prijmeni = scanner.nextLine().trim();
+        String prijmeniKeSmazani = formatovaniTextu.formatujText(prijmeni);
         ArrayList<Klient> nalezeno = databaze.vyhledejKlienta(jmenoKeSmazani, prijmeniKeSmazani);
         System.out.println();
         System.out.println("Nalezeny tyto záznamy: ");
@@ -153,7 +161,8 @@ public class Pojisteni {
         System.out.println("Zadejte ID klienta k editaci jména: ");
         String zadaneId = scanner.nextLine().trim();
         System.out.println("Zadejte nové jméno: ");
-        String noveJmeno = scanner.nextLine().trim();
+        String jmeno = scanner.nextLine().trim();
+        String noveJmeno = formatovaniTextu.formatujText(jmeno);
         if (databaze.editujJmeno(zadaneId, noveJmeno)) {
             System.out.println("Změna byla provedena.");
         } else {
@@ -167,7 +176,8 @@ public class Pojisteni {
         System.out.println("Zadejte ID klienta k editaci příjmení: ");
         String zadaneId = scanner.nextLine().trim();
         System.out.println("Zadejte nové příjmení: ");
-        String novePrijmeni = scanner.nextLine().trim();
+        String prijmeni = scanner.nextLine().trim();
+        String novePrijmeni = formatovaniTextu.formatujText(prijmeni);
         if (databaze.editujPrijmeni(zadaneId, novePrijmeni)) {
             System.out.println("Změna byla provedena.");
         } else {
@@ -201,10 +211,15 @@ public class Pojisteni {
         String zadaneId = scanner.nextLine().trim();
         System.out.println("Zadejte nové telefonní číslo: ");
         String noveTelefonniCislo = scanner.nextLine().trim();
-        if (databaze.editujTelefonniCislo(zadaneId, noveTelefonniCislo)) {
-            System.out.println("Změna byla provedena.");
+        int maxZnaku = 9;
+        if (noveTelefonniCislo.length() < maxZnaku || (noveTelefonniCislo.length() > maxZnaku)) {
+            System.out.println("Nesprávný počet znaků. Zkuste to znovu.");
         } else {
-            System.out.println("Chyba");
+            if (databaze.editujTelefonniCislo(zadaneId, noveTelefonniCislo)) {
+                System.out.println("Změna byla provedena.");
+            } else {
+                System.out.println("Chyba");
+            }
         }
     }
 
@@ -234,6 +249,8 @@ public class Pojisteni {
         System.out.println("B - Editace - Příjmení");
         System.out.println("C - Editace - Věk");
         System.out.println("D - Editace - Telefonní číslo");
+        System.out.println("E - Ukončení editace");
         System.out.println();
     }
+
 }

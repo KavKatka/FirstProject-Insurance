@@ -1,6 +1,5 @@
 package cz.itnetwork;
 
-
 public class Klient {
     /**
      * Jméno klienta

@@ -1,8 +1,6 @@
 package cz.itnetwork;
 
 import java.util.ArrayList;
-import java.util.Objects;
-
 
 public class Databaze {
 

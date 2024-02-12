@@ -53,39 +53,46 @@ public class Program {
                     System.out.println();
                     pojisteni.vypisMenuProEditaci();
                     String editace = "";
-                    editace = scanner.nextLine().toUpperCase().trim();
-                    switch (editace) {
-                        case "A":
-                            System.out.println("Vaše volba - A - Editace - Jméno");
-                            System.out.println();
-                            pojisteni.vyhledejKlienta();
-                            pojisteni.editujJmeno();
-                            System.out.println();
-                            break;
-                        case "B":
-                            System.out.println("Vaše volba - B - Editace - Příjmení");
-                            System.out.println();
-                            pojisteni.vyhledejKlienta();
-                            pojisteni.editujPrijmeni();
-                            System.out.println();
-                            break;
-                        case "C":
-                            System.out.println("Vaše volba - C - Editace - Věk");
-                            System.out.println();
-                            pojisteni.vyhledejKlienta();
-                            pojisteni.editujVek();
-                            System.out.println();
-                            break;
-                        case "D":
-                            System.out.println("Vaše volba - D - Editace - Telefonní číslo");
-                            System.out.println();
-                            pojisteni.vyhledejKlienta();
-                            pojisteni.editujTelefonniCislo();
-                            System.out.println();
-                            break;
-                        default:
-                            System.out.println("Neplatná volba, zkuste to znovu.");
-                            break;
+
+                    while (!editace.equals("E")) {
+                        editace = scanner.nextLine().toUpperCase().trim();
+                        switch (editace) {
+                            case "A":
+                                System.out.println("Vaše volba - A - Editace - Jméno");
+                                System.out.println();
+                                pojisteni.vyhledejKlienta();
+                                pojisteni.editujJmeno();
+                                System.out.println();
+                                break;
+                            case "B":
+                                System.out.println("Vaše volba - B - Editace - Příjmení");
+                                System.out.println();
+                                pojisteni.vyhledejKlienta();
+                                pojisteni.editujPrijmeni();
+                                System.out.println();
+                                break;
+                            case "C":
+                                System.out.println("Vaše volba - C - Editace - Věk");
+                                System.out.println();
+                                pojisteni.vyhledejKlienta();
+                                pojisteni.editujVek();
+                                System.out.println();
+                                break;
+                            case "D":
+                                System.out.println("Vaše volba - D - Editace - Telefonní číslo");
+                                System.out.println();
+                                pojisteni.vyhledejKlienta();
+                                pojisteni.editujTelefonniCislo();
+                                System.out.println();
+                                break;
+                            case "E":
+                                System.out.println("Vaše volba - E - Ukončení editace");
+                                System.out.println();
+                                break;
+                            default:
+                                System.out.println("Neplatná volba, zkuste to znovu.");
+                                break;
+                        }
                     }
                     System.out.println();
                     System.out.println("Pokračujte klávesou ENTER...");
