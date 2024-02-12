@@ -29,6 +29,7 @@ public class Klient {
      * @param prijmeni       Příjmení
      * @param vek            Věk
      * @param telefonniCislo Telefonní číslo
+     *                       Přiřazení unikátního ID
      */
     public Klient(String jmeno, String prijmeni, int vek, String telefonniCislo) {
         this.jmeno = jmeno;
@@ -77,6 +78,9 @@ public class Klient {
         return klientId;
     }
 
+    /**
+     * @return Formátování textu pro výpis
+     */
     @Override
     public String toString() {
         return String.format("%-5s %-30s %-30s %-3d %-9s", getKlientId(), getJmeno(), getPrijmeni(), getVek(), getTelefonniCislo());

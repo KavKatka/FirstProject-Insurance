@@ -33,7 +33,6 @@ public class Pojisteni {
         databaze = new Databaze();
     }
 
-
     /**
      * Metoda pro přidání klienta
      */
@@ -168,7 +167,6 @@ public class Pojisteni {
         } else {
             System.out.println("Chyba.");
         }
-
     }
 
     public void editujPrijmeni() {
@@ -183,7 +181,6 @@ public class Pojisteni {
         } else {
             System.out.println("Chyba");
         }
-
     }
 
     public void editujVek() {
@@ -242,6 +239,9 @@ public class Pojisteni {
         System.out.println();
     }
 
+    /**
+     * Metoda pro vypsání Menu k editaci
+     */
     public void vypisMenuProEditaci() {
         System.out.println();
         System.out.println("Vyberte akci pro editaci: ");
@@ -252,5 +252,4 @@ public class Pojisteni {
         System.out.println("E - Ukončení editace");
         System.out.println();
     }
-
 }

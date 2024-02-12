@@ -51,10 +51,9 @@ public class Program {
                 case "4":
                     System.out.println("Vaše volba: 4 - Upravit záznam u klienta");
                     System.out.println();
-                    pojisteni.vypisMenuProEditaci();
                     String editace = "";
-
                     while (!editace.equals("E")) {
+                        pojisteni.vypisMenuProEditaci();
                         editace = scanner.nextLine().toUpperCase().trim();
                         switch (editace) {
                             case "A":
@@ -108,15 +107,12 @@ public class Program {
                     break;
                 case "6":
                     System.out.println("Vaše volba: 6 - Konec programu");
-                    System.out.println("----------------------------Nashledanou.----------------------------");
+                    System.out.println("----------------------------Nashledanou----------------------------");
                     break;
                 default:
                     System.out.println("Neplatná volba, prosím opakujte znovu.");
                     break;
             }
-
         }
-
-
     }
 }
