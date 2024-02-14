@@ -14,6 +14,8 @@ public class Databaze {
      */
     public Databaze() {
         klienti = new ArrayList<>();
+        //klienti.add(new Klient("Karel", "Nový", 55, "123456789"));
+        //klienti.add(new Klient("Karel", "Nový", 55, "987654321"));
     }
 
     /**

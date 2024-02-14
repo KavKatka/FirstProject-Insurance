@@ -9,7 +9,7 @@ public class IdGenerator {
     private static int pocitadlo = 0;
 
     /**
-     * Metoda generuje ID
+     * Metoda generuje unikátní ID - naformátováno - 001...
      *
      * @return ID
      */

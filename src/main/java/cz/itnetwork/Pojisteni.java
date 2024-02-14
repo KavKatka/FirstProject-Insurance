@@ -219,37 +219,4 @@ public class Pojisteni {
             }
         }
     }
-
-    /**
-     * Metoda pro vypsání hlavního menu
-     */
-    public void vypisMenu() {
-        System.out.println();
-        System.out.println("------------------------------------");
-        System.out.println("     Evidence pojištěných osob");
-        System.out.println("------------------------------------");
-        System.out.println();
-        System.out.println("Vyberte akci: ");
-        System.out.println(" 1 - Přidat novou pojištěnou osobu");
-        System.out.println(" 2 - Vyhledat všechny pojištěné osoby");
-        System.out.println(" 3 - Vyhledat pojištěnou osobu");
-        System.out.println(" 4 - Upravit záznam u klienta");
-        System.out.println(" 5 - Smazat pojištěnou osobu");
-        System.out.println(" 6 - Konec programu");
-        System.out.println();
-    }
-
-    /**
-     * Metoda pro vypsání Menu k editaci
-     */
-    public void vypisMenuProEditaci() {
-        System.out.println();
-        System.out.println("Vyberte akci pro editaci: ");
-        System.out.println("A - Editace - Jméno");
-        System.out.println("B - Editace - Příjmení");
-        System.out.println("C - Editace - Věk");
-        System.out.println("D - Editace - Telefonní číslo");
-        System.out.println("E - Ukončení editace");
-        System.out.println();
-    }
 }
