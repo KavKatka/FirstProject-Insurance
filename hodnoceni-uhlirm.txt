@@ -1,0 +1,4 @@
+Nevím, jak se vám to podařilo, ale váš projekt se nachází na jiné adrese, ke které se nedá prokliknout:
+https://github.com/KavKatka/Projekt-Kavkova/tree/master
+This branch is 12 commits ahead of, 2 commits behind main.
+-------------------------------------------------------------------------------------------------
