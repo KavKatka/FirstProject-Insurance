@@ -5,3 +5,51 @@ This branch is 12 commits ahead of, 2 commits behind main.
 teď jsem si všiml poznámky: Projekt je pod branch - master
 tak teď už tomu rozumím
 -------------------------------------------------------------------------------------------------
+
+Ceníme práci na projektu! 🏆 Prohlédli jsme si kód a máme k němu následující poznámky:
+
+1. Pojmenování identifikátorů:
+- Třídy a proměnné jsou pojmenovány smysluplně a odpovídají jejich obsahu a účelu. Například `Databaze` pro správu klientů, `Klient` pro reprezentaci pojistného, a `Pojisteni` pro logiku aplikace. I když si dokážu představit vhodnější názvy tříd, jako například: SpravaPojistencu, DatabazePojistenych. Třída FormatovaniTextu mi prijde zbytečná. Buď jí rozšířit, nebo její funkcionalitu včlenit do jiné třídy.
+- Proměnné jako `klienti` v třídě `Databaze` správně naznačují, že obsahují kolekci klientů. V metodě vyhledejKlienta bych doporučil kolekci pojmenovat v množném čísle, tedy místo „nalezen“  například nalezeniKlienti.
+- Položka v menu „2 - Vyhledat všechny pojištěné osoby“ by se měla spíš jmenovat „2 – Vypsat všechny pojištěné osoby“
+
+2. Dodržení principů SRP a SoC:
+- Každá třída má specifickou zodpovědnost, což odpovídá Single Responsibility Principle (SRP). Například `Databaze` spravuje seznam klientů, zatímco `FormatovaniTextu` se stará o formátování textu.
+- Oddělení zodpovědností (Separation of Concerns, SoC) je dodrženo rozdělením funkcionalit mezi třídy jako `Databaze`, `Klient`, a `Pojisteni`. Uživatelské rozhraní a logika správy dat jsou oddělené.
+- V metodě vygerujId() bych nedoporučoval formátování textu, ale jenom generování Id. Formátování bych dělal na jiném místě, a tedy až v momentě výpisu. Tím se oddělí funkcionalita dle principu SoC.
+
+3. Vhodné výběry datových typů:
+- Telefonní číslo je správně uloženo jako `String`, což je vhodné, protože telefonní čísla mohou začínat nulou a obsahovat speciální znaky jako pomlčky nebo mezery.
+- Věk je reprezentován typem `int`, což je přiměřené pro ukládání celočíselných hodnot.
+
+4. Správné formátování kódu:
+- Kód je dobře formátovaný, s jednotným odsazením a formátováním, což usnadňuje jeho čtení a pochopení.
+- Nejsem velký příznivec komentářů za kódem. Doporučil bych jednořádkový komentář na samostatný řádek, v tomto případě před try blok:
+            try {                   // try-catch blok - pro zachycení vyjímky - uzivatel zadá třeba písmena
+
+5. Minimalizace duplicitního kódu:
+- Kód obsahuje některé opakující se části. Mohlo by být vhodné centralizovat logiku formátování do třídy `FormatovaniTextu` a používat ji v rámci celé aplikace.
+- Řádky následujícího kódu se taky opakují a měly by být v samostatné metodě:
+                    System.out.println();
+                    System.out.println("Pokračujte klávesou ENTER...");
+                    scanner.nextLine();
+- Funkcionalita například přidejVěk a editujVěk je hodně podobná a dala by se sloučit do jedné metody, aby se vyhlo duplicitě. Platí i pro jiné údaje pojištěnce.
+
+6. Validace vstupních dat a ošetření neočekávaných vstupů:
+- Aplikace obsahuje základní validaci vstupů, jako je kontrola délky telefonního čísla a zachycení chyb při konverzi řetězce na celé číslo pro věk. Nicméně, mohla by být rozšířena o další kontrolu, např. ověření, že věk je v rozumném rozmezí.
+
+7. Logičnost a přiměřená složitost algoritmů:
+- Algoritmy jsou logické a přiměřeně složité. Metody nejsou příliš dlouhé a jsou dobře strukturované.
+- Řešení mi přijde lehce komplikovanější, než by muselo být.
+
+8. Přítomnost a kvalita komentářů:
+- Komentáře jsou užitečné a přispívají k lepšímu pochopení kódu.
+
+9. Funkcionalita
+- Ve třídě Klienti není dobrý nápad formátovat výstup metod getterů. Ty mají jen vracet hodnotu atributů. Tvoje metoda getPrijmeni udělá zjevně z příjmení „von Matterhorn“ jméno „Von Matterhorn“. To samé pro „de Santos“ atp. co není správné.
+
+10. Celkové hodnocení:
+- Kód je celkově dobře strukturovaný a napsaný s ohledem na dobré programátorské praktiky. Zohledňuje základní principy objektově orientovaného programování a dodržuje zadání. Doporučil bych se zaměřit na další vylepšení validace vstupů a možná na zredukování duplicitního kódu tím, že se logika formátování jmen a příjmení centralizuje do třídy `FormatovaniTextu`.
+- Oceňuji rozšíření zadání o možnost editace a mazání pojištěnců.
+
+Doporučujeme případné výtky v kódu opravit, aby jsi jej mohla pak prezentovat budoucímu zaměstnavateli v co nejlepší kvalitě. Pokud by jsi potřebovala s čímkoli pomoci, naplánuj si s námi konzultaci, rádi ti poradíme!
