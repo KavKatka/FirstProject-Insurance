@@ -2,7 +2,7 @@ package cz.itnetwork;
 
 import java.util.ArrayList;
 
-public class Databaze {
+public class DatabazePojistenych {
 
     /**
      * Kolekce klientů
@@ -12,10 +12,10 @@ public class Databaze {
     /**
      * Konstruktor
      */
-    public Databaze() {
+    public DatabazePojistenych() {
         klienti = new ArrayList<>();
-        //klienti.add(new Klient("Karel", "Nový", 55, "123456789"));
-        //klienti.add(new Klient("Karel", "Nový", 55, "987654321"));
+        klienti.add(new Klient("Karel", "Nový", 55, "123456789"));
+        klienti.add(new Klient("Karel", "Nový", 55, "987654321"));
     }
 
     /**
@@ -27,8 +27,8 @@ public class Databaze {
      * @param telefonniCislo Telefonní číslo
      */
     public boolean pridejKlienta(String jmeno, String prijmeni, int vek, String telefonniCislo) {
-        ArrayList<Klient> existujici = getKlienti();
-        for (Klient klient : existujici) {
+        ArrayList<Klient> existujiciKlienti = getKlienti();
+        for (Klient klient : existujiciKlienti) {
             if (klient.getTelefonniCislo().equals(telefonniCislo)) {
                 return false;
             }
@@ -54,13 +54,13 @@ public class Databaze {
      * @return Nalezený klient/Klienti
      */
     public ArrayList<Klient> vyhledejKlienta(String jmeno, String prijmeni) {
-        ArrayList<Klient> nalezen = new ArrayList<>();
+        ArrayList<Klient> nalezeniKlienti = new ArrayList<>();
         for (Klient klient : klienti) {
             if (klient.getJmeno().equals(jmeno) && klient.getPrijmeni().equals(prijmeni)) {
-                nalezen.add(klient);
+                nalezeniKlienti.add(klient);
             }
         }
-        return nalezen;
+        return nalezeniKlienti;
     }
 
     /**

@@ -1,6 +1,10 @@
 package cz.itnetwork;
 
+import java.util.Scanner;
+
 public class FormatovaniTextu {
+    Scanner scanner;
+
     /**
      * Metoda naformatuje text - jméno, příjmení
      *
@@ -10,4 +14,7 @@ public class FormatovaniTextu {
     public String formatujText(String text) {
         return text.substring(0, 1).toUpperCase() + text.substring(1).toLowerCase();
     }
+
+
+
 }

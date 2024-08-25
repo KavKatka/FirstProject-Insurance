@@ -36,14 +36,14 @@ public class Klient {
         this.prijmeni = prijmeni;
         this.vek = vek;
         this.telefonniCislo = telefonniCislo;
-        this.klientId = IdGenerator.vygenerujId();
+        this.klientId = String.valueOf(IdGenerator.vygenerujId());
     }
 
     /**
      * Gettery a Settery
      */
     public String getJmeno() {
-        return jmeno.substring(0, 1).toUpperCase() + jmeno.substring(1);
+        return jmeno;
     }
 
     public void setJmeno(String jmeno) {
@@ -51,7 +51,7 @@ public class Klient {
     }
 
     public String getPrijmeni() {
-        return prijmeni.substring(0, 1).toUpperCase() + prijmeni.substring(1);
+        return prijmeni;
     }
 
     public void setPrijmeni(String prijmeni) {
@@ -83,7 +83,7 @@ public class Klient {
      */
     @Override
     public String toString() {
-        return String.format("%-5s %-30s %-30s %-3d %-9s", getKlientId(), getJmeno(), getPrijmeni(), getVek(), getTelefonniCislo());
+        return String.format("%-6s %-30s %-30s %-4d %-7s", getKlientId(), getJmeno(), getPrijmeni(), getVek(), getTelefonniCislo());
     }
 
 }

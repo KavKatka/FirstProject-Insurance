@@ -7,7 +7,7 @@ public class Pojisteni {
     /**
      * Kolekce
      */
-    private Databaze databaze;
+    private DatabazePojistenych databaze;
     /**
      * Scanner - vstup od uživatele
      */
@@ -22,7 +22,7 @@ public class Pojisteni {
      *
      * @return databáze
      */
-    public Databaze getDatabaze() {
+    public DatabazePojistenych getDatabaze() {
         return databaze;
     }
 
@@ -30,7 +30,7 @@ public class Pojisteni {
      * Konstruktor
      */
     public Pojisteni() {
-        databaze = new Databaze();
+        databaze = new DatabazePojistenych();
     }
 
     /**

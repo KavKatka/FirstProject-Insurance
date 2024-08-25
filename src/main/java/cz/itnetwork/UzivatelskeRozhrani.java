@@ -8,43 +8,11 @@ public class UzivatelskeRozhrani {
      * Scanner
      */
     private Scanner scanner = new Scanner(System.in);
+
     /**
      * Pojištění
      */
-    public Pojisteni pojisteni = new Pojisteni();
-
-    /**
-     * Metoda pro vypsání hlavního menu
-     */
-    public void vypisMenu() {
-        System.out.println();
-        System.out.println("------------------------------------");
-        System.out.println("     Evidence pojištěných osob");
-        System.out.println("------------------------------------");
-        System.out.println();
-        System.out.println("Vyberte akci: ");
-        System.out.println(" 1 - Přidat novou pojištěnou osobu");
-        System.out.println(" 2 - Vyhledat všechny pojištěné osoby");
-        System.out.println(" 3 - Vyhledat pojištěnou osobu");
-        System.out.println(" 4 - Upravit záznam u klienta");
-        System.out.println(" 5 - Smazat pojištěnou osobu");
-        System.out.println(" 6 - Konec programu");
-        System.out.println();
-    }
-
-    /**
-     * Metoda pro vypsání Menu k editaci
-     */
-    public void vypisMenuProEditaci() {
-        System.out.println();
-        System.out.println("Vyberte akci pro editaci: ");
-        System.out.println("A - Editace - Jméno");
-        System.out.println("B - Editace - Příjmení");
-        System.out.println("C - Editace - Věk");
-        System.out.println("D - Editace - Telefonní číslo");
-        System.out.println("E - Ukončení editace");
-        System.out.println();
-    }
+    private Pojisteni pojisteni = new Pojisteni();
 
     /**
      * Metoda pro výpis - volby a běh programu
@@ -59,25 +27,20 @@ public class UzivatelskeRozhrani {
                     System.out.println("Vaše volba: 1 - Přidat novou pojištěnou osobu");
                     System.out.println();
                     pojisteni.pridejKlienta();
-                    System.out.println();
-                    System.out.println("Pokračujte klávesou ENTER...");
-                    scanner.nextLine();
+                    pokracujKlavesouEnter();
                     break;
                 case "2":
                     System.out.println("Vaše volba: 2 - Vyhledat všechny pojištěné osoby");
                     System.out.println();
                     pojisteni.vyhledejVsechnyKlienty();
-                    System.out.println();
-                    System.out.println("Pokračujte klávesou ENTER...");
-                    scanner.nextLine();
+                    pokracujKlavesouEnter();
+
                     break;
                 case "3":
                     System.out.println("Vaše volba: 3 - Vyhledat pojištěnou osobu");
                     System.out.println();
                     pojisteni.vyhledejKlienta();
-                    System.out.println();
-                    System.out.println("Pokračujte klávesou ENTER...");
-                    scanner.nextLine();
+                    pokracujKlavesouEnter();
                     break;
                 case "4":
                     System.out.println("Vaše volba: 4 - Upravit záznam u klienta");
@@ -124,17 +87,13 @@ public class UzivatelskeRozhrani {
                                 break;
                         }
                     }
-                    System.out.println();
-                    System.out.println("Pokračujte klávesou ENTER...");
-                    scanner.nextLine();
+                    pokracujKlavesouEnter();
                     break;
                 case "5":
                     System.out.println("Vaše volba: 5 - Smazat pojištěnou osobu");
                     System.out.println();
                     pojisteni.vymazKlienta();
-                    System.out.println();
-                    System.out.println("Pokračujte klávesou ENTER...");
-                    scanner.nextLine();
+                    pokracujKlavesouEnter();
                     break;
                 case "6":
                     System.out.println("Vaše volba: 6 - Konec programu");
@@ -145,5 +104,48 @@ public class UzivatelskeRozhrani {
                     break;
             }
         }
+    }
+    // Private methods
+
+    /**
+     * Metoda pro vypsání hlavního menu
+     */
+    private void vypisMenu() {
+        System.out.println();
+        System.out.println("------------------------------------");
+        System.out.println("     Evidence pojištěných osob");
+        System.out.println("------------------------------------");
+        System.out.println();
+        System.out.println("Vyberte akci: ");
+        System.out.println(" 1 - Přidat novou pojištěnou osobu");
+        System.out.println(" 2 - Vypsat všechny pojištěné osoby");
+        System.out.println(" 3 - Vyhledat pojištěnou osobu");
+        System.out.println(" 4 - Upravit záznam u klienta");
+        System.out.println(" 5 - Smazat pojištěnou osobu");
+        System.out.println(" 6 - Konec programu");
+        System.out.println();
+    }
+
+    /**
+     * Metoda pro vypsání Menu k editaci
+     */
+    private void vypisMenuProEditaci() {
+        System.out.println();
+        System.out.println("Vyberte akci pro editaci: ");
+        System.out.println("A - Editace - Jméno");
+        System.out.println("B - Editace - Příjmení");
+        System.out.println("C - Editace - Věk");
+        System.out.println("D - Editace - Telefonní číslo");
+        System.out.println("E - Ukončení editace");
+        System.out.println();
+    }
+
+    /**
+     * Metoda, která redukuje duplicitní kód
+     */
+    private void pokracujKlavesouEnter() {
+        System.out.println();
+        System.out.println("Pokračujte klávesou ENTER...");
+        scanner.nextLine();
     }
 }
